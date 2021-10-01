@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import ru.grfc.layoutscodelab.ui.theme.LayoutsCodelabTheme
@@ -76,6 +78,35 @@ fun BodyContent(modifier: Modifier = Modifier) {
                 Chip(modifier = Modifier.padding(8.dp), text = topic)
             }
         }
+    }
+}
+
+@Composable
+fun ConstraintLayoutContent() {
+    ConstraintLayout {
+        val (button, text) = createRefs()
+
+        Button(
+            onClick = {},
+            modifier = Modifier.constrainAs(button) {
+                top.linkTo(parent.top, margin = 16.dp)
+            }
+        ) {
+            Text("Button")
+        }
+
+        Text("Text", Modifier.constrainAs(text) {
+            top.linkTo(button.bottom, margin = 16.dp)
+            centerHorizontallyTo(parent)
+        })
+    }
+}
+
+@Preview
+@Composable
+fun ConstraintLayoutContentPreview() {
+    LayoutsCodelabTheme {
+        ConstraintLayoutContent()
     }
 }
 
@@ -179,22 +210,6 @@ fun Modifier.firstBaselineToTop(
     }
 )
 
-@Preview
-@Composable
-fun TextWithPaddingToBaselinePreview() {
-    LayoutsCodelabTheme {
-        Text("Hi there!", Modifier.firstBaselineToTop(32.dp))
-    }
-}
-
-@Preview
-@Composable
-fun TextWithNormalPaddingPreview() {
-    LayoutsCodelabTheme {
-        Text("Hi there!", Modifier.padding(top = 32.dp))
-    }
-}
-
 @Composable
 fun MyOwnColumn(
     modifier: Modifier = Modifier,
@@ -239,12 +254,6 @@ fun SimpleList() {
     }
 }
 
-@Preview
-@Composable
-fun SimpleListPreview() {
-    SimpleList()
-}
-
 @Composable
 fun LazyList() {
 
@@ -255,12 +264,6 @@ fun LazyList() {
             ImageListItem(it)
         }
     }
-}
-
-@Preview
-@Composable
-fun LazyListPreview() {
-    LazyList()
 }
 
 @Composable
@@ -341,10 +344,3 @@ fun PhotographerCard(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-fun PhotographerCardPreview() {
-    LayoutsCodelabTheme {
-        PhotographerCard()
-    }
-}
