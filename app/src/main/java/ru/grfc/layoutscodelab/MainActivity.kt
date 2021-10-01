@@ -68,10 +68,11 @@ fun LayoutsCodelab() {
 
 @Composable
 fun BodyContent(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(text = "Hello there!")
-        Text(text = "Thanks for going through the Layouts codelab")
-        ScrollingList()
+    MyOwnColumn(modifier.padding(8.dp)) {
+        Text("MyOwnColumn")
+        Text("places items")
+        Text("vertically.")
+        Text("We've done it by hand!")
     }
 }
 
