@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -84,6 +86,30 @@ fun SimpleList() {
             Text("Item #$it")
         }
     }
+}
+
+@Preview
+@Composable
+fun SimpleListPreview() {
+    SimpleList()
+}
+
+@Composable
+fun LazyList() {
+
+    val scrollState = rememberLazyListState()
+
+    LazyColumn(state = scrollState) {
+        items(100) {
+            Text("Item #$it")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun LazyListPreview() {
+    LazyList()
 }
 
 @Composable
